@@ -98,7 +98,7 @@
         .navbar .Button {
             display: flex;
             justify-content: space-around;
-            padding: 10px;
+            padding: 1px;
         }
 
         .navbar a {
@@ -114,14 +114,10 @@
 
         @media (max-width: 768px) {
             .navbar {
-                flex-direction: column;
-                align-items: flex-start;
-                height: 100%;
-                width: 60px;
+
             }
 
             .navbar .Button {
-                flex-direction: column;
             }
 
             .navbar a {
@@ -155,20 +151,6 @@
             transform: scale(0.5);
             transition: transform 0.3s ease;
             transform-origin: center;
-        }
-
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            font-size: 28px;
-            color: #ffbb00;
-        }
-
-
-        .hamburger-container {
-            display: none;
-            position: relative;
-            padding: 0px 15px;
         }
 
         .content {
@@ -290,6 +272,14 @@
                 background-color: transparent; /* Midway, fade to white border */
             }
         }
+        @keyframes fadeText{
+            0%, 100% {
+                color: #ffbb00; /* Start and end with yellow border */
+            }
+            50% {
+                color: white; /* Midway, fade to white border */
+            }
+        }
         .fade{
             animation: fadeText 2s infinite; /* Apply the keyframes animation in an infinite loop */
         }
@@ -343,32 +333,7 @@
         
         @media (max-width: 768px) {
 
-            .hamburger-container {
-                display: block;
-            }
-            .navbar .Button {
-                display: none;
-                opacity: 0;
-                transition: opacity 0.5s ease;
-            }
 
-            .navbar.active .Button {
-                display: flex;
-                flex-direction: column;
-                opacity: 1;
-            }
-            .navbar .Button {
-                display: none;
-            }
-
-            .navbar .hamburger {
-                display: block;
-            }
-
-            .navbar.active .Button {
-                display: flex;
-                flex-direction: column;
-            }
             .element2 {
                 width: 10%;
                 position: absolute;
@@ -793,16 +758,12 @@
 </div>
 
 <div class="navbar">
-    <div class="hamburger-container" onclick="toggleMenu()">
-        <div class="hamburger">☰</div>
-    </div>
     <div class="Button">
         <a href="#About">About</a>
         <a href="#Schedule">Schedule</a>
         <a href="#Tracks">Tracks</a>
          <a href="#Sponsors">Sponsors</a>
         <a href="#Faq">Faq</a>
-        <a href="#Social Media">Social Media</a>
 
 
     </div>
