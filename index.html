@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Goldman' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GMU CS Club Hackathon</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #001B06;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+            height: 100%; /* Ensure the full height */
+            text-decoration: none;
+
+        }
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
+        
+        
+        .header-container, .skyline2-container, .skyline1-container {
+            width: 100%;
+            height: 550px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 120%;
+
+        }
+        #head{
+            animation: slideInFromLeft 1s ease forwards;
+
+        }
+
+        .faq-container {
+            margin: 20px;
+            background-color: #FFCA3B;
+        }
+        
+        .faq-item {
+            margin-bottom: 10px;
+            border-bottom: 1px solid #061A08;
+            padding-bottom: 10px; /* Padding above the line for spacing */
+            background-color: #ffbb00;
+
+        }
+        
+        .faq-item a {
+            display: block; /* Make the link a block element */
+            color: #061A08; /* Inherit color or specify your own */
+            text-decoration: none; /* Remove underline */
+            
+        }
+        
+        .faq-answer {
+            margin-top: 5px;
+            padding-left: 20px;
+            background-color: #ffbb00;
+            display: none; /* Initially hidden */
+        }
+        
+               
+        .header-container {
+            background-image: url('images_asset/skyline1.png');
+        }
+
+        .skyline2-container {
+            background-image: url('images_asset/skyline2.png');
+        }
+
+        .skyline1-container {
+            background-image: url('images_asset/skyline1.png');
+        }
+
+        .full-width-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #061A08;
+            z-index: 1000;
+            font-family: 'Goldman';
+        }
+
+        .navbar.expanded {
+            width: 110px;
+        }
+
+        .navbar .Button {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+        }
+
+        .navbar a {
+            color: #ffbb00;
+            text-decoration: none;
+            padding: 8px 12px;
+        }
+
+        .navbar a:hover {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                height: 100%;
+                width: 60px;
+            }
+
+            .navbar .Button {
+                flex-direction: column;
+            }
+
+            .navbar a {
+                padding: 10px;
+            }
+        }
+
+        .container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .image-wrapper {
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+            position: relative;
+            transition: transform .15s;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-width: none;
+        }
+
+        .image-wrapper img.logo {
+            transform: scale(0.5);
+            transition: transform 0.3s ease;
+            transform-origin: center;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 28px;
+            color: #ffbb00;
+        }
+
+
+        .hamburger-container {
+            display: none;
+            position: relative;
+            padding: 0px 15px;
+        }
+
+        .content {
+            font-family: goldman ;
+            flex: 1; /* This will push the footer down */
+
+        }
+
+        .content h1 {
+            font-size: 58px; /* Adjust size as needed */
+            color: #ffbb00; /* Yellow color for headings */
+            margin: 20px 0; /* Add some space above and below the heading */
+            text-decoration: none;
+
+        }
+        
+        .content section:nth-child(odd) {
+            text-align: center;
+            padding-right: 0;
+            font-size: 20px;
+            text-decoration: none;
+
+        }
+        #About {
+            text-align: center;
+            font-size: 30px;
+            animation: slideInFromRight 1s ease forwards;
+
+
+        }
+        
+        .content section:nth-child(even) {
+            text-align: center;
+            padding-left: 0;
+            font-size: 20px;
+
+        }
+        #Schedule {
+            margin-right: 10%;
+            margin-left: 10%;
+
+        }
+        
+        /* Center the table within the Schedule section */
+        #Schedule .event-table {
+            display: table; /* Ensures that the table is treated as a block-level table */
+        }
+        
+        
+        /* Additional styling to ensure the text in each section is readable and well-spaced */
+        .content p {
+            margin: 10px 0;
+        }
+        .event-table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        .event-table th, .event-table td {
+            border: 1px solid #ffbb00;
+            padding: 8px;
+            color: white;
+            font-family: 'Goldman';
+        }
+        
+        .event-table th {
+            background-color: #ffbb00;
+        }
+        .styled-input {
+            background-color: transparent;
+            border: 2px solid #ffbb00;
+            color: #ffbb00;
+            font-family: 'Goldman';
+            padding: 5px 10px;
+            margin: 5px 0;
+            animation: fadeBorder 2s infinite; /* Apply the keyframes animation in an infinite loop */
+
+        }
+        
+
+        @keyframes fadeBorder {
+            0%, 100% {
+                border-color: #ffbb00; /* Start and end with yellow border */
+            }
+            50% {
+                border-color: white; /* Midway, fade to white border */
+            }
+        }
+
+        .styled-input2 {
+            background-color: transparent;
+            border: 10px solid #ffbb00;
+            font-size: 55px;
+            color: #ffbb00;
+            font-family: 'Goldman';
+            text-decoration: none;
+            padding: 20px 40px;
+            margin: 5px 0;
+            animation: fadeBorder 2s infinite; /* Apply the keyframes animation in an infinite loop */
+            animation: fadeBack 2s infinite; /* Apply the keyframes animation in an infinite loop */
+
+        }
+        .styled-input2:hover {
+            background-color: #ffbb00;
+            border: 10px solid #ffbb00;
+            font-size: 55px;
+            color: #ffbb00;
+            font-family: 'Goldman';
+            padding: 20px 40px;
+            margin: 5px 0;
+            animation: fadeText 2s infinite; /* Apply the keyframes animation in an infinite loop */
+
+        }
+        @keyframes fadeBack{
+            0%, 100% {
+                background-color: #ffbb00; /* Start and end with yellow border */
+            }
+            50% {
+                background-color: transparent; /* Midway, fade to white border */
+            }
+        }
+        .fade{
+            animation: fadeText 2s infinite; /* Apply the keyframes animation in an infinite loop */
+        }
+        .element1 {
+            width: 10%;
+            position: absolute;
+            bottom: 54.1%;
+            right: 84.5%;
+            animation: slideInFromLeft 1s ease forwards, pulse 1.5s ease 1s infinite;
+        }
+        
+        .element2 {
+            width: 10%;
+            position: absolute;
+            bottom: 54.1%;
+            left: 84.5%;
+            animation: slideInFromRight 1s ease forwards, pulse 1.5s ease 1s infinite;
+        }
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes slideInFromRight {
+            0% {
+                transform: translateX(100%); /* Start off-screen to the right */
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0); /* End at the element's final position */
+                opacity: 1;
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        @media (max-width: 768px) {
+
+            .hamburger-container {
+                display: block;
+            }
+            .navbar .Button {
+                display: none;
+                opacity: 0;
+                transition: opacity 0.5s ease;
+            }
+
+            .navbar.active .Button {
+                display: flex;
+                flex-direction: column;
+                opacity: 1;
+            }
+            .navbar .Button {
+                display: none;
+            }
+
+            .navbar .hamburger {
+                display: block;
+            }
+
+            .navbar.active .Button {
+                display: flex;
+                flex-direction: column;
+            }
+            .element2 {
+                width: 10%;
+                position: absolute;
+                bottom: 74.1%;
+                left: 84.5%;
+                animation: slideInFromRight 1s ease forwards, pulse 1.5s ease 1s infinite;
+            }
+            .element1 {
+                width: 10%;
+                position: absolute;
+                bottom: 74.1%;
+                left: 15.5%;
+                animation: slideInFromLeft 1s ease forwards, pulse 1.5s ease 1s infinite;
+            }
+                    /* CSS for the footer */
+        footer {
+            width: 100%;
+            background-color:#ffbb00; 
+            color: rgb(4, 53, 0);
+            text-align: center; 
+            position: relative; /* Adjust as needed */
+            font-family: goldman;
+
+        }
+
+        footer ul {
+            list-style: none; /* Remove default list styling */
+            padding: 0;
+            margin: 0; /* Remove default margins */
+            font-family: goldman;
+
+        }
+
+        footer ul li {
+            display: inline; /* Display list items inline */
+            margin: 0 10px; /* Add some space between items */
+            font-family: goldman;
+
+        }
+
+        footer a {
+            color: white; /* Link color */
+        }
+
+            
+        }
+        .full-width-image{
+                        animation: slideInFromt 1s ease forwards;
+
+        }
+
+        #trackpic {
+            /* Your existing styles */
+            animation: shake 2.5s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            25% {
+                
+                transform: translateY(-7px);
+
+            }
+            50% {
+                
+                transform: translateY(7px);
+
+            }
+            75% {
+                
+                transform: translateY(-7px);
+
+            }
+        }
+        footer {
+            width: 100%;
+            background-color: #FFCA3B; 
+            color: rgb(4, 53, 0);
+            text-align: center; 
+            position: relative; /* Adjust as needed */
+            font-family: goldman;
+
+        }
+
+        footer ul {
+            list-style: none; /* Remove default list styling */
+            padding: 0;
+            margin: 0; /* Remove default margins */
+            font-family: goldman;
+
+        }
+
+        footer ul li {
+            display: inline; /* Display list items inline */
+            margin: 0 10px; /* Add some space between items */
+            font-family: goldman;
+
+        }
+
+        footer a {
+            color: white; /* Link color */
+        }
+        #coming {
+                text-align: center;
+                font-size: 20px;
+                height: 10%;
+                }
+                
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: transparent;
+            border: 2px solid #FFCA3B;
+            color: #FFCA3B;
+            font-family: 'Goldman';
+            padding: 2.5% 3.5%;
+            animation: fadeBorder 2s infinite; /* Apply the keyframes animation in an infinite loop */
+            font-size: 22px;
+
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #464646;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 10px 12px;
+        }
+
+            </style>
+</head>
+<body>
+
+<div class="header-container" id="headerContainer">
+    <img src="images_asset/HACKFAX_2024_header.png" alt="Hackathon Header" class="full-width-image" id ="head">
+    <img src="images_asset/Location_and_date_subheading.png" alt="Location and Date" class="full-width-image"id ="head" >
+    <img src="images_asset/element1.png" alt="Hackathon Header" class ="element1">
+    <img src="images_asset/element1.png" alt="Hackathon Header" class ="element2">
+
+    <div class="container">
+        <div class="page-container">
+
+        <div class="image-wrapper">
+            
+            <img src="images_asset/logo.png" alt="Hackathon Logo" class="full-width-image logo">
+            <div class="content">
+                <section id="About">
+                    <h1>About</h1>
+                    <p>Welcome to the <h3 class="fade">GMU CS Clubs Premier Hackathon!</h3>
+                        Hackfax welcomes students all over the GMU FairFax Area and beyond!<br>
+                        Enjoy 36 hours of non-stop programming with teams of up to 4 students
+                        work on projects from complete scratch. <br>At the end of the hackathon,
+                        teams present their projects to judges and compete for prizes
+                        </p>
+                </section>
+                <section id="Schedule">
+                    <h1>Schedule</h1>
+                    <div class="tab">
+                        <button class="tablinks" onclick="openDay(event, 'Day1')">Day 1</button>
+                        <button class="tablinks" onclick="openDay(event, 'Day2')">Day 2</button>
+                        <button class="tablinks" onclick="openDay(event, 'Day3')">Day 3</button>
+                    </div>
+                    
+                    <div id="Day1" class="tabcontent">
+                        <table class="event-table">
+                            <tr>
+                                <th>Time</th>
+                                <th>Event/Activity</th>
+                                <th>Location</th>
+                            </tr>
+                            <tr>
+                                <td>4:30 PM</td>
+                                <td>Check-in Begins</td>
+                                <td>JC Floor</td>
+                            </tr>
+                            <tr>
+                                <td>5:00 PM</td>
+                                <td>Opening Ceremony</td>
+                                <td>Dewberrry Hall</td>
+                            </tr>
+                            <tr>
+                                <td>6:00 PM</td>
+                                <td>Hacking Begins</td>
+                                <td>Various</td>
+                            </tr>
+                            <tr>
+                                <td>7:00 PM</td>
+                                <td>Sponsor Hall Opens!</td>
+                                <td>Horizon Atrium</td>
+                            </tr>
+                            <tr>
+                                <td>8:00 PM</td>
+                                <td>Dinner</td>
+                                <td>Horizon Hall Atrium</td>
+                            </tr>
+                            <tr>
+                                <td>8:30 PM</td>
+                                <td>Movie Screening</td>
+                                <td>JC Cinema</td>
+                            </tr>
+                            <tr>
+                                <td>10:00 PM</td>
+                                <td>Workshop</td>
+                                <td>TBA</td>
+                            </tr>
+                            <tr>
+                                <td>11:00 PM</td>
+                                <td>Workshop</td>
+                                <td>TBA</td>
+                            </tr>
+                            </table>
+                        </div>
+                                        
+                        <div id="Day2" class="tabcontent">
+                            <table class="event-table">
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Event/Activity</th>
+                                    <th>Location</th>
+                                </tr>
+                                <tr>
+                                    <td>9:30 AM</td>
+                                    <td>Breakfast</td>
+                                    <td>Horizon Hall</td>
+                                </tr>
+                                <tr>
+                                    <td>12:30 PM</td>
+                                    <td>Sponsor Workshop</td>
+                                    <td>Dewberry Hall</td>
+                                </tr>
+                                <tr>
+                                    <td>1:30 PM</td>
+                                    <td>Sponsor Workshop</td>
+                                    <td>Dewberry Hall</td>
+                                </tr>
+                                <tr>
+                                    <td>2:30 PM</td>
+                                    <td>Sponsor Workshop</td>
+                                    <td>Dewberry Hall</td>
+                                </tr>
+                                <tr>
+                                    <td>3:30 PM</td>
+                                    <td>Sponsor Workshop</td>
+                                    <td>Dewberry Hall</td>
+                                </tr>
+                                <tr>
+                                    <td>4:00 PM</td>
+                                    <td> Lunch</td>
+                                    <td>Horizon Atrium</td>
+                                </tr>
+                                <tr>
+                                    <td>4:30 PM</td>
+                                    <td>Sponsor Workshop</td>
+                                    <td>Dewberry Hall</td>
+                                </tr>
+                                <tr>
+                                    <td>5:30 PM</td>
+                                    <td>Sponsor Workshop</td>
+                                    <td>Dewberry Hall</td>
+                                </tr>
+   
+                                <tr>
+                                    <td>6:00 PM</td>
+                                    <td>Workshop</td>
+                                    <td>TBA</td>
+                                </tr>
+                                <tr>
+                                    <td>7:00 PM</td>
+                                    <td>Puzzle challenge</td>
+                                    <td>TBA</td>
+                                </tr>
+                                <tr>
+                                    <td>8:00 PM</td>
+                                    <td>Dinner</td>
+                                    <td>Horizon Atrium</td>
+                                </tr>
+                                </table>
+                            </div>
+                                        
+                            <div id="Day3" class="tabcontent">
+                                <table class="event-table">
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Event/Activity</th>
+                                        <th>Location</th>
+                                    </tr>
+                                    <tr>
+                                        <td>8:30 AM</td>
+                                        <td>Soft Deadline</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10:30 AM</td>
+                                        <td>Hard Deadline</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    <tr>
+                                        <td>11:00 AM</td>
+                                        <td>Breakfast</td>
+                                        <td>Horizon Atrium</td>
+                                    </tr>
+                                    <tr>
+                                        <td>11:45 AM</td>
+                                        <td>Judging Begins</td>
+                                        <td>Dewberry Hall</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1:00 PM</td>
+                                        <td>Closing Ceremony</td>
+                                        <td>Dewberry Hall</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2:00 PM</td>
+                                        <td>Wrap-up</td>
+                                        <td>TBA</td>
+                                    </tr>
+                                    </table>
+                                </div>
+                                
+                </section>
+                <section id="Tracks">
+                    <h1>Tracks</h1>
+                    <img src="images_asset/Tracks.png" alt="Location and Date" class="full-width-image"id ="trackpic" >
+                </section>
+                <section id="Sponsors">
+                    <h1>Sponsors</h1>
+                            <img src="images_asset/Coming_soon.png" id="coming" alt="Hackathon Header" class="full-width-image" id ="head">
+                        
+                </section>
+                <section id="Faq">
+                    <h1>FAQ</h1>
+                    <div class="faq-container">
+                        <!-- Question 1 -->
+                        <div class="faq-item">
+                            <a href="javascript:void(0)" onclick="toggleAnswer('answer1')">How many people can be on a team? Do I need one? How do I find a team?</a>
+                            <p id="answer1" class="faq-answer" style="display:none;">If you are planning to compete for a prize, you may be in a team of 1-4 people. If you don't have one yet, no worries! We will have team-building sessions available prior to the event, and a channel for this in the Discord Server!</p>
+                        </div>
+                        
+                        <!-- Question 2 -->
+                        <div class="faq-item">
+                            <a href="javascript:void(0)" onclick="toggleAnswer('answer2')">Do I need to pay for anything?</a>
+                            <p id="answer2" class="faq-answer" style="display:none;">HackFax is free for all participants! This includes food throughout the weekend, T-shirts, stickers, and more!</p>
+                        </div>
+                        <!-- Question 3 -->
+                        <div class="faq-item">
+                            <a href="javascript:void(0)" onclick="toggleAnswer('answer3')">Where/where is it going to be?</a>
+                            <p id="answer2" class="faq-answer" style="display:none;">Our hackathon will take place at George Mason Fairfax campus from February 16th to 28th. More specifically, we will be in Dewberry hall in the Johnson center, and Horizon Hall</p>
+                        </div>                    
+                        <!-- Question 4 -->
+                        <div class="faq-item">
+                            <a href="javascript:void(0)" onclick="toggleAnswer('answer4')">What is HackFax? What does it mean?</a>
+                            <p id="answer4" class="faq-answer" style="display:none;">HackFax is a product of the GMU Computer Science club, an established student organization, home to over 400 members. HackFax is the culmination of the work of the CS Club team with help from the CS Dept. at GMU, to bring the people the best hackathon possible! The name "HackFax" comes from GMU's central campus' location in Fairfax, VA. As we aim to connect students from many different schools, we are excited to welcome any and all to visit Fairfax for a great event!</p>
+                        </div>
+                        <!-- Question 5 -->
+                        <div class="faq-item">
+                            <a href="javascript:void(0)" onclick="toggleAnswer('answer5')">How long is the event? Are there sleeping accomodations?</a>
+                            <p id="answer5" class="faq-answer" style="display:none;">HackFax spans from Friday February 16th, to Sunday February 18th, accomodations for sleep will be announced in the discord server!</p>
+                        </div>
+                    
+                        <!-- Question 6 -->
+                        <div class="faq-item">
+                            <a href="javascript:void(0)" onclick="toggleAnswer('answer6')">Is there a code of conduct?</a>
+                            <p id="answer6" class="faq-answer" style="display:none;">Yes, all attendees must abide by the MLH Code of Conduct.</p>
+                        </div>
+                    
+                        <!-- Question 7 -->
+                        <div class="faq-item">
+                            <a href="javascript:void(0)" onclick="toggleAnswer('answer7')">Any other questions?</a>
+                            <p id="answer7" class="faq-answer" style="display:none;">Contact us at hackfaxgmu@gmail.com if you have any questions, concerns, or feedback!</p>
+                        </div>
+                    </div>
+                </section>
+<!--                <section id="Social Media">
+                    <h1>Social Media</h1>
+                    <p>Information about how to follow the event...</p>
+                </section>
+-->
+                <section id ="Form">
+                        <h1>Registration Form</h1>
+                        <br><br><br>
+                        <button class="styled-input2">
+                            <a href="https://forms.gle/ebMkjm6LtDdUMbPM8">Register Here!</a>
+                        </button>
+                        <br><br><br>
+                                            
+
+                </section>
+            </div>
+            <br><br><br><br><br><br><br><br><br>
+
+    <footer>
+        <ul>
+            <li>Contact Us: HackFaxGMU@gmail.com</li>
+            <li><a href="https://www.instagram.com/gmu_cs/">CS Club Instagram</a></li>
+            <li><a href="https://www.instagram.com/hackfax/">HackFax Instagram</a></li>
+            <li><a href="https://www.linkedin.com/company/101005990/admin/feed/posts/">CS Club Linkedin</a></li>
+            <li><a href="https://www.linkedin.com/company/100315945/admin/feed/posts/">HackFax Linkedin</a></li>
+        </ul>
+        <p>&copy; 2023-2024 HackFax. GMU Computer Science Club All rights reserved.</p>
+
+    </footer>
+        </div>
+
+
+    </div>
+</div>
+
+</div>
+
+<div class="navbar">
+    <div class="hamburger-container" onclick="toggleMenu()">
+        <div class="hamburger">☰</div>
+    </div>
+    <div class="Button">
+        <a href="#About">About</a>
+        <a href="#Schedule">Schedule</a>
+        <a href="#Tracks">Tracks</a>
+         <a href="#Sponsors">Sponsors</a>
+        <a href="#Faq">Faq</a>
+        <a href="#Social Media">Social Media</a>
+
+
+    </div>
+    
+</div>
+
+
+
+<div class="skyline2-container" id="skyline2Container"></div>
+<div class="skyline1-container" id="skyline1Container"></div>
+<div class="skyline2-container" id="skyline2Container"></div>
+<div class="skyline1-container" id="skyline1Container"></div>
+<div class="skyline2-container" id="skyline2Container"></div>
+<div class="skyline1-container" id="skyline1Container"></div>
+
+<script>
+    function toggleAnswer(answerId) {
+        var answer = document.getElementById(answerId);
+        answer.style.display = answer.style.display === 'none' ? 'block' : 'none';
+    }
+    
+    function openDay(evt, dayName) {
+        var i, tabcontent, tablinks;
+    
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+    
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+    
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(dayName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+    
+    // Set the default tab (Day 1) to be open on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('.tablinks').click();
+    }, false);
+    
+    function toggleMenu() {
+        var navbar = document.querySelector('.navbar');
+        navbar.classList.toggle('active');
+        navbar.classList.toggle('expanded');
+    }
+
+    const startScale = 200;
+    const endScale = 1000;
+
+    window.addEventListener('scroll', function() {
+        var scrollPosition = window.pageYOffset;
+        var maxHeight = document.body.scrollHeight - window.innerHeight;
+        var scale = (startScale + (endScale - startScale) * (scrollPosition / maxHeight)) / 100;
+
+        if (scale > 1.5) scale = 1.5;
+
+        var logoImage = document.querySelector('.image-wrapper img.logo');
+        logoImage.style.transform = 'scale(' + scale + ')';
+    });
+</script>
+
+</body>
+</html>
