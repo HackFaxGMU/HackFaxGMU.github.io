@@ -35,7 +35,7 @@
         
         .faq-item {
             margin-bottom: 10px;
-            border-bottom: 1px solid #061A08;
+            border-bottom: 3px solid #061A08;
             padding-bottom: 10px; /* Padding above the line for spacing */
             background-color: #ffbb00;
 
@@ -53,6 +53,8 @@
             padding-left: 20px;
             background-color: #ffbb00;
             display: none; /* Initially hidden */
+            color: #061A08; /* Inherit color or specify your own */
+
         }
         
                
@@ -242,7 +244,7 @@
             padding: 20px 40px;
             margin: 5px 0;
             animation: fadeBorder 2s infinite; /* Apply the keyframes animation in an infinite loop */
-            animation: fadeBack 2s infinite; /* Apply the keyframes animation in an infinite loop */
+            animation: fadeBack 5s infinite; /* Apply the keyframes animation in an infinite loop */
 
         }
         .styled-input2:hover {
@@ -428,7 +430,8 @@
         }
 
         footer a {
-            color: white; /* Link color */
+            color: rgb(4, 53, 0);
+            ; /* Link color */
         }
         #coming {
                 text-align: center;
